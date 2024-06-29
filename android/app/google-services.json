@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "912469034938",
+    "project_id": "semproject-f02aa",
+    "storage_bucket": "semproject-f02aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912469034938:android:5f2d20c0ce1e98839fff83",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_bTopx9db2gPdmKzI_6tzvzTiu0iZcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
