@@ -15,10 +15,7 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
-    dependencies {
-  implementation 'com.github.baato.navigation-sdk:baato-navigation-android:${latest-version}'
-  implementation 'com.github.baato.navigation-sdk:baato-navigation-android-ui:${latest-version}'
-}
+  
 }
 
 rootProject.buildDir = "../build"

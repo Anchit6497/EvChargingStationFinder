@@ -1,96 +1,48 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/global/common/toast.dart';
+import 'package:flutter_application_1/features/user_auth/presentation/pages/appointment.dart';
+import 'package:flutter_application_1/features/user_auth/presentation/pages/home_view.dart';
+import 'package:flutter_application_1/features/user_auth/presentation/pages/profile_view.dart';
+import 'package:flutter_application_1/features/user_auth/presentation/pages/search.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+
+class Home extends StatefulWidget {
+  const Home ({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Home> createState() => _HomeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeState extends State<Home> {
+  int SelectedIndex =0;
+  List ScreenList =[
+    HomePage(),
+   BaatoSearchPage(),
+    Appointment(),
+    ProfileView(),
+
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Welcome"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Text(
-              "Welcome to Homepage",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 200,
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Search',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.search),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 10),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, "/search");
-                },
-                child: Container(
-                  width: 45,
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(Icons.search, color: Colors.white),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 30),
-          GestureDetector(
-            onTap: () {
-              FirebaseAuth.instance.signOut();
-              Navigator.pushNamed(context, "/login");
-              showToast1(meassage: "Signed Out Successfully");
-            },
-            child: Container(
-              width: 100,
-              height: 45,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Text(
-                  "Sign Out",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      body:ScreenList.elementAt(SelectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Color.fromARGB(255, 0, 0, 0),
+        selectedLabelStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+        selectedIconTheme:IconThemeData(color: const Color.fromARGB(255, 0, 0, 0)),
+        backgroundColor: Color.fromARGB(255, 220, 220, 202),
+        type:BottomNavigationBarType.fixed,
+        currentIndex: SelectedIndex,
+        onTap: (value){
+          setState(() {
+            SelectedIndex =value;
+          });
+        },
+        items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home),label:"Home"),
+        BottomNavigationBarItem(icon: Icon(Icons.search),label:"Search"),
+        BottomNavigationBarItem(icon: Icon(Icons.charging_station_rounded),label:"Bookings"),
+        BottomNavigationBarItem(icon: Icon(Icons.person),label:"Profile"),
+      ],),
     );
   }
 }

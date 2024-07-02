@@ -46,13 +46,9 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
-        multiDexEnabled true
+       
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
+   
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -68,6 +64,4 @@ flutter {
 
 dependencies{
     implementation platform("com.google.firebase:firebase-bom:33.1.1")
-    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
 }

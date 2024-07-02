@@ -23,7 +23,17 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("welcome", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+        
+        child: 
+        
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assests/logo.png'),
+
+            Text("welcome", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold,fontSize: 20),),
+          ],
+        ),
         ),
     );
   }

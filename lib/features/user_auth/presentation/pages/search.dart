@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../../baato_service.dart';
-
+import 'package:flutter_application_1/baato_service.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Baato Api try',
+      title: 'Baato API Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -22,18 +21,31 @@ class BaatoSearchPage extends StatefulWidget {
 
 class _BaatoSearchPageState extends State<BaatoSearchPage> {
   final TextEditingController _queryController = TextEditingController();
-  String _searchResult = '';
+  List<String> _searchResults = [];
   final BaatoService _baatoService = BaatoService();
 
   void _search() async {
     try {
       final result = await _baatoService.search(_queryController.text);
       setState(() {
-        _searchResult = result.toString();
+        if (result is Map<String, dynamic>) {
+          // Extract relevant information from the map
+          if (result.containsKey('data') && result['data'] is List) {
+            _searchResults = (result['data'] as List)
+                .map((item) => item.toString())
+                .toList();
+          } else {
+            _searchResults = ['No data found'];
+          }
+        } else if (result is List) {
+          _searchResults = result.map((item) => item.toString()).toList();
+        } else {
+          _searchResults = ['Unexpected result type'];
+        }
       });
     } catch (error) {
       setState(() {
-        _searchResult = 'Error: $error'; 
+        _searchResults = ['Error: $error'];
       });
     }
   }
@@ -61,12 +73,19 @@ class _BaatoSearchPageState extends State<BaatoSearchPage> {
               child: Text('Search'),
             ),
             SizedBox(height: 16),
-            Text('Search Result:'),
+            Text('Search Results:'),
             SizedBox(height: 8),
             Expanded(
-              child: SingleChildScrollView(
-                child: Text(_searchResult),
-              ),
+              child: _searchResults.isEmpty
+                  ? Center(child: Text('No results'))
+                  : ListView.builder(
+                      itemCount: _searchResults.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(_searchResults[index]),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
@@ -74,3 +93,4 @@ class _BaatoSearchPageState extends State<BaatoSearchPage> {
     );
   }
 }
+

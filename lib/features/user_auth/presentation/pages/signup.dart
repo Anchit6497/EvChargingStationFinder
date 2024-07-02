@@ -50,7 +50,10 @@ class _SignupPageState extends State<SignupPage> {
                 SizedBox(
                   height:30,
                 ),
-            
+                Text("Create your Account",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+             SizedBox(
+                  height:50
+                ),
                 FormContainerWidget(
                   controller: _usernameController,
                   hintText: "Username",

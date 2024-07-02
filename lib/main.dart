@@ -2,12 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/app/splash_screen/splash_screen.dart';
-import 'package:flutter_application_1/features/user_auth/presentation/pages/home.dart';
+
 import 'package:flutter_application_1/features/user_auth/presentation/pages/login.dart';
 import 'package:flutter_application_1/features/user_auth/presentation/pages/search.dart';
-// import 'package:flutter_application_1/signup.dart';
-// import 'package:flutter_application_1/search.dart';
-
+import 'package:flutter_application_1/features/user_auth/presentation/pages/home.dart';
+import 'package:flutter_application_1/features/user_auth/presentation/pages/station_view.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,9 +37,10 @@ class MyApp extends StatelessWidget {
       home:SplashScreen(
         child:LoginPage(),),
         routes: {
-          '/home':(context)=> HomePage(),
+          '/home':(context)=>Home(),
           '/login':(context)=>LoginPage(),
           '/search':(context)=>BaatoSearchPage(),
+          '/stationview':(context)=>StationView(),
         },
     );
   }
