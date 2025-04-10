@@ -2,19 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
-import 'package:flutter_application_1/features/user_auth/presentation/pages/signup.dart';
 import 'package:flutter_application_1/features/user_auth/presentation/pages/widgets/form_container_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/global/common/toast.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class Loginadmin extends StatefulWidget {
+  const Loginadmin({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Loginadmin> createState() => _LoginadminState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginadminState extends State<Loginadmin> {
 
 
 
@@ -104,17 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                     SizedBox(height: 25,),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Don't have an account?"),
-                  SizedBox(width: 5,),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupPage()));
-                    },
-                    child:Text("Sign Up", style: TextStyle(color:Colors.blue,fontSize: 20, fontWeight: FontWeight.bold),) ,
-                  )
-          
-                ],)
+                )
               
                 ]
                  ,),
@@ -140,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
   });
   if(user != null){
     showToast1(meassage: "Signed In succesfully");
-    Navigator.pushNamed(context, "/home");
+    Navigator.pushNamed(context, "/adminNavigation");
   
     
     

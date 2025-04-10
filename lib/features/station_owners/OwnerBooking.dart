@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/features/controllers/appointment_controller.dart';
 import 'package:get/get.dart';
 
-class Appointment extends StatelessWidget {
+class Ownerbooking extends StatelessWidget {
   final bool isStationOwner;
-  const Appointment({super.key, this.isStationOwner = false});
+  const Ownerbooking({super.key, this.isStationOwner = true});
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +39,13 @@ class Appointment extends StatelessWidget {
               var appointment = appointments[index];
               var appointmentData = appointment.data() as Map<String, dynamic>;
 
-              // Display the station name correctly
               return ListTile(
                 leading: CircleAvatar(child: Image.asset('assests/station.png')),
-                title: Text(
-                  appointmentData['appwithname'] ?? 'Unknown Station', // Ensure to display the station name
+                title: Text(appointmentData['appwithname'], 
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text(
-                  "${appointmentData['date']} ${appointmentData['start_time']} - ${appointmentData['end_time']}",
-                  style: TextStyle(color: Colors.grey[700]),
-                ),
+                subtitle: Text("${appointmentData['date']}      ${appointmentData['start_time']}  -  ${appointmentData['end_time']}"),
+                // Adjust subtitle format based on your Firestore document structure
               );
             },
           );

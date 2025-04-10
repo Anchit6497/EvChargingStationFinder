@@ -1,12 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/RoleSelectionPage.dart';
 import 'package:flutter_application_1/features/app/splash_screen/splash_screen.dart';
-
+import 'package:flutter_application_1/features/station_owners/login_owner.dart';
+import 'package:flutter_application_1/features/station_owners/ownerNavigation.dart';
+import 'package:flutter_application_1/features/user_auth/presentation/adminnavigation.dart';
+import 'package:flutter_application_1/features/user_auth/presentation/loginadmin.dart';
 import 'package:flutter_application_1/features/user_auth/presentation/pages/login.dart';
 import 'package:flutter_application_1/features/user_auth/presentation/pages/search.dart';
 import 'package:flutter_application_1/features/user_auth/presentation/pages/home.dart';
-import 'package:flutter_application_1/features/user_auth/presentation/pages/station_view.dart';
+
+
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,12 +40,18 @@ class MyApp extends StatelessWidget {
        debugShowCheckedModeBanner: false,
       title: 'project',
       home:SplashScreen(
-        child:LoginPage(),),
+        child:RoleSelectionPage(),),
         routes: {
           '/home':(context)=>Home(),
           '/login':(context)=>LoginPage(),
           '/search':(context)=>BaatoSearchPage(),
-          '/stationview':(context)=>StationView(),
+          '/stationowner':(context)=>LoginOwner(),
+          '/RoleSelectionPage':(context)=>RoleSelectionPage(),
+          '/ownerNavigation':(context)=>Ownernavigation(),
+          '/admin':(context)=>Loginadmin(),
+          '/adminNavigation':(context)=>Adminnavigation(),
+          
+          
         },
     );
   }

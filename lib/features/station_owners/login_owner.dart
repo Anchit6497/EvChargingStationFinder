@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
-import 'package:flutter_application_1/features/user_auth/presentation/pages/signup.dart';
+import 'package:flutter_application_1/features/station_owners/firebase_auth_implementation_owner/firebase_auth_services_owner.dart';
+import 'package:flutter_application_1/features/station_owners/signup_owner.dart';
 import 'package:flutter_application_1/features/user_auth/presentation/pages/widgets/form_container_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/global/common/toast.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginOwner extends StatefulWidget {
+  const LoginOwner({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginOwner> createState() => _LoginOwnerState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginOwnerState extends State<LoginOwner> {
 
 
 
   bool _isSigning =false;
-  final FirebaseAuthService _auth =FirebaseAuthService(); 
+  final FirebaseAuthServiceOwner _auth =FirebaseAuthServiceOwner(); 
 
  
   TextEditingController _emailController =TextEditingController();
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(width: 5,),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>OwnerSignupPage()));
                     },
                     child:Text("Sign Up", style: TextStyle(color:Colors.blue,fontSize: 20, fontWeight: FontWeight.bold),) ,
                   )
@@ -134,13 +134,13 @@ class _LoginPageState extends State<LoginPage> {
   String email =_emailController.text;
   String password = _passwordController.text;
 
-  User? user = await _auth.signInWithEmailAndPassword(email, password);
+  User? user = await _auth.signInOwnerWithEmailAndPassword(email, password);
   setState(() {
     _isSigning=false;
   });
   if(user != null){
     showToast1(meassage: "Signed In succesfully");
-    Navigator.pushNamed(context, "/home");
+    Navigator.pushNamed(context, "/ownerNavigation");
   
     
     

@@ -1,16 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+
+import 'package:flutter_application_1/features/user_auth/presentation/pages/book_appointment.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_application_1/features/components/custom_button.dart';
 
 class StationView extends StatelessWidget {
-  const StationView({super.key});
+    final DocumentSnapshot doc;
+  const StationView({super.key, required this.doc});
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 238, 229, 194),
       appBar: AppBar(
@@ -39,7 +44,7 @@ class StationView extends StatelessWidget {
                 CircleAvatar(
                   
                   backgroundImage: AssetImage('assests/station.png'),
-                  radius: 50,
+                  radius: 40,
                  
               
                 ),
@@ -49,7 +54,7 @@ class StationView extends StatelessWidget {
                  
                   children: [
                     
-                    Text('Station Name',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                    Text(doc['stationName'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
                     SizedBox(height: 10,),
                     
                    
@@ -58,7 +63,7 @@ class StationView extends StatelessWidget {
                       onRatingUpdate: (value){},
                     maxRating: 5,
                     count:5,
-                    value:4,
+                    value:double.parse(doc['stationrating'].toString()),
                     stepInt: true,
                     )
                   ],
@@ -83,7 +88,7 @@ class StationView extends StatelessWidget {
                   children:[ 
                 ListTile(
                   title: Text('Phone Number'),
-                  subtitle:Text("+977-9394439855",style: TextStyle(color: Colors.black.withOpacity(0.5)), ),
+                  subtitle:Text(doc['stationPhone'],style: TextStyle(color: Colors.black.withOpacity(0.5)), ),
                   
                   trailing: Container(
                     width: 50,
@@ -101,11 +106,15 @@ class StationView extends StatelessWidget {
                   SizedBox(height: 15,),
                    Text('About',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                     SizedBox(height: 5,),
-                    Text('this is the about'),
+                    Text(doc['stationabout']),
                      SizedBox(height: 15,),
                     Text('Address',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                     SizedBox(height: 5,),
-                    Text('Address of the staion'),
+                    Text(doc['stationaddress']),
+                    SizedBox(height: 15,),
+                    Text('Opening time',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                    SizedBox(height: 5,),
+                    Text(doc['openingtime']),
 
                   ],
                   )
@@ -114,7 +123,9 @@ class StationView extends StatelessWidget {
         ),
         bottomNavigationBar:Padding(
           padding: const EdgeInsets.all(15.0),
-          child: CustomButton(buttonText: "Book Station", onTap: (){},),
+          child: CustomButton(buttonText: "Book Station", onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>BookAppointment(docId: doc['stationId'],docName:doc['stationName'] ,)));
+          },),
         ),
     );
   }

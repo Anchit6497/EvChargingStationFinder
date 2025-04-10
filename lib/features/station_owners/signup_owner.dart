@@ -1,30 +1,32 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
-import 'package:flutter_application_1/features/user_auth/presentation/pages/login.dart';
+import 'package:flutter_application_1/features/station_owners/firebase_auth_implementation_owner/firebase_auth_services_owner.dart';
+import 'package:flutter_application_1/features/station_owners/login_owner.dart';
 import 'package:flutter_application_1/features/user_auth/presentation/pages/widgets/form_container_widget.dart';
 import 'package:flutter_application_1/global/common/toast.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class OwnerSignupPage extends StatefulWidget {
+  const OwnerSignupPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<OwnerSignupPage> createState() => _OwnerSignupPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _OwnerSignupPageState extends State<OwnerSignupPage> {
   bool _signingUp = false;
-  final FirebaseAuthService _auth = FirebaseAuthService();
+  final FirebaseAuthServiceOwner _auth = FirebaseAuthServiceOwner();
 
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _stationNameController = TextEditingController();
 
   @override
   void dispose() {
     _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _stationNameController.dispose();
     super.dispose();
   }
 
@@ -35,7 +37,7 @@ class _SignupPageState extends State<SignupPage> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assests/peakpx.jpg'), 
+              image: AssetImage('assets/peakpx.jpg'), 
               fit: BoxFit.cover,
             ),
           ),
@@ -44,13 +46,19 @@ class _SignupPageState extends State<SignupPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Sign Up", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black)),
+                Text("Owner Sign Up", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black)),
                 SizedBox(height: 30),
                 Text("Create your Account", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
                 SizedBox(height: 50),
                 FormContainerWidget(
                   controller: _usernameController,
-                  hintText: "Username",
+                  hintText: "Full Name",
+                  isPasswordField: false,
+                ),
+                SizedBox(height: 30),
+                FormContainerWidget(
+                  controller: _stationNameController,
+                  hintText: "Station Name",
                   isPasswordField: false,
                 ),
                 SizedBox(height: 30),
@@ -78,7 +86,7 @@ class _SignupPageState extends State<SignupPage> {
                     child: Center(
                       child: _signingUp
                         ? CircularProgressIndicator(color: Colors.white)
-                        : Text("SignUp", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                        : Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ),
@@ -90,7 +98,7 @@ class _SignupPageState extends State<SignupPage> {
                     SizedBox(width: 5),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginOwner()));
                       },
                       child: Text("Login", style: TextStyle(color: Colors.blue, fontSize: 25, fontWeight: FontWeight.bold)),
                     ),
@@ -109,11 +117,12 @@ class _SignupPageState extends State<SignupPage> {
       _signingUp = true;
     });
 
-    String fullname = _usernameController.text;
+    String fullName = _usernameController.text;
+    String stationName = _stationNameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password, fullname);
+    User? user = await _auth.signUpOwnerWithEmailAndPassword(email, password, fullName, stationName);
 
     setState(() {
       _signingUp = false;
@@ -121,7 +130,7 @@ class _SignupPageState extends State<SignupPage> {
 
     if (user != null) {
       showToast(meassage: "Created account successfully");
-      Navigator.pushNamed(context, "/home");
+      Navigator.pushNamed(context, "/ownerHome");
     } else {
       showToast(meassage: "Some error occurred");
     }
